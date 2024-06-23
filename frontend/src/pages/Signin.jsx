@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom"
 import { BottomWarning } from "../components/BottomWarning"
 import { Button } from "../components/Button"
 import { Heading } from "../components/Heading"
@@ -13,9 +14,9 @@ export const Signin = () => {
         <InputBox placeholder="Enter email" label={"Email"} />
         <InputBox placeholder="Enter Password" label={"Password"} />
         <div className="pt-4">
-          <Button label={"Sign in"} />
+          <Button label={"Sign in"} onClick={Navigate("/dashboard")}/>
         </div>
-        <BottomWarning label={"Don't have an account?"} buttonText={"Sign up"} to={"/signup"} />
+        <BottomWarning label={"Don't have an account?"} buttonText={"Sign up"} to={"/"} />
       </div>
     </div>
   </div>
