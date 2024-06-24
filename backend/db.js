@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
-mongoose.connect("mongodb+srv://itsaashi2004:HR6jGnyodvI99JPZ@cluster0.no643kg.mongodb.net/notmrp");
+require("dotenv").config({
+    path: "./.env"
+})
+mongoose.connect(process.env.MONGO_URI);
 
 const userSchema = new mongoose.Schema({
     username: {
