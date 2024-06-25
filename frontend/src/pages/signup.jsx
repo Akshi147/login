@@ -13,6 +13,7 @@ export const Signup = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState('');
+    const [showPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleSignup = async () => {
@@ -27,10 +28,10 @@ export const Signup = () => {
             navigate("/dashboard");
         } catch (error) {
             if (error.response) {
-                if (error.response.status === 409) {
+                if (error.response.status === 411) {
                     setError("Email already taken.");
-                } else {
-                    setError("An error occurred. Please try again.");
+                } else if(error.response.status === 410) {
+                    setError("Please fill all required fields correctly");
                 }
             } else {
                 setError("An error occurred. Please try again.");
@@ -44,23 +45,23 @@ export const Signup = () => {
                 <div className="rounded-lg bg-white w-80 text-center p-2 h-max px-4">
                     <Heading label={"Sign up"} />
                     <SubHeading label={"Enter your information to create an account"} />
-                    <InputBox onChange={e => {
+                    <InputBox required onChange={e => {
                         setFirstName(e.target.value);
-                    }} placeholder="" label={"First Name"} />
+                    }} placeholder="Enter first name" label={"First Name"} />
                     <InputBox onChange={(e) => {
                         setLastName(e.target.value);
-                    }} placeholder="" label={"Last Name"} />
-                    <InputBox onChange={e => {
+                    }} placeholder="Enter last name" label={"Last Name"} />
+                    <InputBox required onChange={e => {
                         setUsername(e.target.value);
                     }} placeholder="Enter email" label={"Email"} />
-                    <InputBox onChange={(e) => {
+                    <InputBox required onChange={(e) => {
                         setPassword(e.target.value);
-                    }} placeholder="Password of min. 4 characters" label={"Password"} />
+                    }} placeholder="Password of min. 6 characters" label={"Password"} type={showPassword ? "text" : "password"}/>
                     {error && <div className="text-red-500 pt-2">{error}</div>}
                     <div className="pt-4">
                         <Button onClick={handleSignup} label={"Sign up"} />
                     </div>
-                    <BottomWarning label={"Already have an account?"} buttonText={"Sign in"} to={"/signin"} />
+                    <BottomWarning label={"Already have an account?"} buttonText={"Sign in"} to={"/"} />
                 </div>
             </div>
         </div>

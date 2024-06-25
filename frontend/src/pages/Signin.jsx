@@ -11,6 +11,7 @@ export const Signin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [showPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleSignin = async () => {
@@ -23,12 +24,12 @@ export const Signin = () => {
             navigate("/dashboard");
         } catch (error) {
             if (error.response) {
-                if (error.response.status === 401) {
-                    setError("Invalid credentials. Please try again.");
-                } else if (error.response.status === 404) {
+                if (error.response.status === 404) {
                     setError("User does not exist.");
-                } else {
-                    setError("An error occurred. Please try again.");
+                } else if (error.response.status === 400) {
+                    setError("Please fill the required fields correctly.");
+                } else if (error.response.status===401) {
+                    setError("Incorrect password.");
                 }
             } else {
                 setError("An error occurred. Please try again.");
@@ -42,13 +43,13 @@ export const Signin = () => {
                 <div className="rounded-lg bg-white w-80 text-center p-2 h-max px-4">
                     <Heading label={"Sign in"} />
                     <SubHeading label={"Enter your credentials to access your account"} />
-                    <InputBox placeholder="enter your email" label={"Email"} value={email} onChange={e => setEmail(e.target.value)} />
-                    <InputBox placeholder="enter password" label={"Password"} value={password} onChange={e => setPassword(e.target.value)} />
+                    <InputBox required placeholder="enter your email" label={"Email"} value={email} onChange={e => setEmail(e.target.value)} />
+                    <InputBox required placeholder="enter password" label={"Password"} value={password} type={showPassword ? "text" : "password"} onChange={e => setPassword(e.target.value)} />
                     {error && <div className="text-red-500 pt-2">{error}</div>}
                     <div className="pt-4">
                         <Button label={"Sign in"} type="submit" onClick={handleSignin} />
                     </div>
-                    <BottomWarning label={"Don't have an account?"} buttonText={"Sign up"} to={"/"} />
+                    <BottomWarning label={"Don't have an account?"} buttonText={"Sign up"} to={"/signup"} />
                 </div>
             </div>
         </div>
