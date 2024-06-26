@@ -14,9 +14,16 @@ export const Signin = () => {
     const [showPassword] = useState(false);
     const navigate = useNavigate();
 
+    const googleAuth = () => {
+		window.open(
+			"https://login-seven-pink.vercel.app/auth/google/callback",
+			"_self"
+		);
+	};
+
     const handleSignin = async () => {
         try {
-            const response = await axios.post("https://login-seven-pink.vercel.app/api/v1/user/signin", {
+            const response = await axios.post("https://login-seven-pink.vercel.app/auth/signin", {
                 username: email,
                 password
             });
@@ -30,6 +37,8 @@ export const Signin = () => {
                     setError("Please fill the required fields correctly.");
                 } else if (error.response.status===401) {
                     setError("Incorrect password.");
+                } else if (error.response.status === 402){
+                    setError("error while logging in.");
                 }
             } else {
                 setError("An error occurred. Please try again.");
@@ -48,6 +57,7 @@ export const Signin = () => {
                     {error && <div className="text-red-500 pt-2">{error}</div>}
                     <div className="pt-4">
                         <Button label={"Sign in"} type="submit" onClick={handleSignin} />
+                        <Button label={"Sign in with Google"} onClick={googleAuth} />
                     </div>
                     <BottomWarning label={"Don't have an account?"} buttonText={"Sign up"} to={"/signup"} />
                 </div>

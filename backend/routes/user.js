@@ -1,5 +1,8 @@
+require("dotenv").config({
+    path: "./.env",
+});
 const express = require('express');
-
+const passport = require('passport');
 const router = express.Router();
 const zod = require("zod");
 const { User } = require("../db");
@@ -115,5 +118,23 @@ router.put("/", authMiddleware, async (req, res) => {
         message: "Updated successfully"
     })
 })
+
+router.get("/google/callback",
+    passport.authenticate("google",{
+        successRedirect: `${process.env.CLIENT_URL}/dashboard`,
+        failureRedirect: `${process.env.CLIENT_URL}`,
+    })
+)
+
+router.get("/google", passport.authenticate("google",["profile", "email"]));
+
+router.get("/logout", (req, res) => {
+    req.logout(err => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect(`${process.env.CLIENT_URL}`);
+    });
+});
 
 module.exports = router;

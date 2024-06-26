@@ -6,8 +6,7 @@ export const Dashboard = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
+    window.open(`https://login-seven-pink.vercel.app/auth/logout`, "_self");
   };
 
   return (
