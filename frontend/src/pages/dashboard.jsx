@@ -1,9 +1,7 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
 import { Button } from "../components/Button";
 
 export const Dashboard = () => {
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     window.open(`https://login-seven-pink.vercel.app/auth/logout`, "_self");

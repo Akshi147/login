@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
+        default: null,
         minLength: 6
     },
     firstName: {
@@ -29,6 +29,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true,
         maxLength: 50
+    },
+    oauthProvider: {
+        type: String,
+        trim: true
+    },
+    oauthId: {
+        type: String,
+        trim: true
     }
 });
 
