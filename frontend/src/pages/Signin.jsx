@@ -15,7 +15,7 @@ import { auth } from "../firebase.config";
 import { toast, Toaster } from "react-hot-toast";
 
 export const Signin = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [error, setError] = useState("");
@@ -36,7 +36,7 @@ export const Signin = () => {
   const handleSignin = async () => {
     try {
       const response = await axios.post("https://login-seven-pink.vercel.app/auth/signin", {
-        username,
+        username: email,
         password
       });
       localStorage.setItem("token", response.data.token);
@@ -156,8 +156,8 @@ export const Signin = () => {
                 required
                 placeholder="Enter your email"
                 label={"Email"}
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <InputBox
                 required

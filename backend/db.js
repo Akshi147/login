@@ -5,13 +5,15 @@ require("dotenv").config({
 mongoose.connect(process.env.MONGO_URI);
 
 const userSchema = new mongoose.Schema({
-    username: {
-        type: String,
-        required: true,
-        unique: true,
-        lowercase: true,
-        minLength: 3,
-        maxLength: 30
+        username: {
+            type: String,
+            required: true,
+            sparse: true,
+            unique: true,
+            trim: true,
+            lowercase: true,
+            trim: true,
+            maxLength: 50
     },
     password: {
         type: String,
