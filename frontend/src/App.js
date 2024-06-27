@@ -6,6 +6,7 @@ import {
 import { Signup } from "./pages/signup";
 import { Signin } from "./pages/Signin";
 import { Dashboard } from "./pages/dashboard";
+import { auth } from "./firebase.config";
 
 function App() {
   return (

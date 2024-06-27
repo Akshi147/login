@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 require("dotenv").config({
     path: "./.env"
-})
+});
 mongoose.connect(process.env.MONGO_URI);
 
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
+        sparse: true,
         unique: true,
         trim: true,
         lowercase: true,
@@ -30,6 +31,12 @@ const userSchema = new mongoose.Schema({
         trim: true,
         maxLength: 50
     },
+    phoneNumber: {
+        type: String,
+        unique: true,
+        sparse: true, // Allows null values to be unique
+        trim: true
+    },
     oauthProvider: {
         type: String,
         trim: true
@@ -43,5 +50,5 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 module.exports = {
-	User
+    User
 };
