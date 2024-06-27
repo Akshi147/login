@@ -34,7 +34,7 @@ export const Signup = () => {
 
   const handleSignup = async () => {
     try {
-      const response = await axios.post("https://login-seven-pink.vercel.app/auth/signup", {
+      const response = await axios.post("https://login-seven-pink.vercel.app/auth/", {
         username,
         firstName,
         lastName,
