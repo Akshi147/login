@@ -203,9 +203,11 @@ export const Signup = () => {
                     className="opt-container"
                   />
                   {error && <div className="text-red-500 pt-2">{error}</div>}
+                  <div className="pt-4">
                   <Button onClick={onOTPVerify} label={"Verify OTP"}>
                     {loading && <CgSpinner size={20} className="mt-1 animate-spin" />}
                   </Button>
+                  </div>
                 </>
               ) : (
                 <>
@@ -232,9 +234,11 @@ export const Signup = () => {
                     label={"Last Name"}
                   />
                   {error && <div className="text-red-500 pt-2">{error}</div>}
+                  <div className="pt-4">
                   <Button onClick={handleOTPSignup} label={"Send code via SMS"}>
                     {loading && <CgSpinner size={20} className="mt-1 animate-spin" />}
                   </Button>
+                  </div>
                 </>
               )}
             </div>
