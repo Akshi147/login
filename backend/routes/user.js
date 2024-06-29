@@ -9,6 +9,12 @@ const { User } = require("../db");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config");
 const { authMiddleware } = require("../middleware");
+const admin = require("firebase-admin");
+const serviceAccount = require("../firebase.json");
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
 
 const signupBody = zod.object({
     username: zod.string().email(),
