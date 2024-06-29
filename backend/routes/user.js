@@ -42,18 +42,13 @@ router.post("/", async (req, res) => {
         });
     }
 
-    const userData = {
+    const user = await User.create({
         username: req.body.username,
         password: req.body.password,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-    };
-
-    if (req.body.phoneNumber) {
-        userData.phoneNumber = req.body.phoneNumber;
-    }
-
-    const user = await User.create(userData);
+        phoneNumber: req.body.phoneNumber || null,
+    });
     const userId = user._id;
 
     const token = jwt.sign({
@@ -65,7 +60,6 @@ router.post("/", async (req, res) => {
         token: token
     });
 });
-
 
 const signinBody = zod.object({
     username: zod.string().email(),
@@ -153,21 +147,24 @@ router.get("/logout", (req, res) => {
     });
 });
 
+// New route to handle OTP verification signup
 router.post("/otp-verify", async (req, res) => {
     const { phoneNumber, firstName, lastName } = req.body;
+
 
     const existingUser = await User.findOne({
         phoneNumber: phoneNumber
     });
 
     if (existingUser) {
+        console.log("phone number already registered.");
         return res.status(411).json({
             message: "Phone number already registered"
         });
     }
 
     const user = await User.create({
-        username: null,
+        username: firstName,
         phoneNumber,
         firstName,
         lastName,
@@ -179,12 +176,12 @@ router.post("/otp-verify", async (req, res) => {
         userId
     }, JWT_SECRET);
 
+
     res.json({
         message: "User created successfully",
         token: token
     });
 });
-
 
 // New route to handle OTP verification sign-in
 router.post("/otp-signin", async (req, res) => {
@@ -194,6 +191,7 @@ router.post("/otp-signin", async (req, res) => {
         const user = await User.findOne({ phoneNumber });
 
         if (!user) {
+            console.log("User does not exist");
             return res.status(404).json({
                 message: "User does not exist"
             });
@@ -203,10 +201,12 @@ router.post("/otp-signin", async (req, res) => {
             userId: user._id
         }, JWT_SECRET);
 
+
         res.json({
             token: token
         });
     } catch (error) {
+        console.log("An error occurred while logging in",error);
         res.status(500).json({
             message: "An error occurred while logging in"
         });
