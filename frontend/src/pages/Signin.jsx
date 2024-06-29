@@ -105,10 +105,10 @@ export const Signin = () => {
         console.error('Error sending OTP:', error);
         setLoading(false);
         if (error.code === 'auth/too-many-requests') {
-          setError('Too many requests. Please try again later.');
-        } else {
-          setError('Something went wrong. Please try again.');
-        }
+          setError('Too many requests. Please try again later.');}
+        // } else {
+        //   setError('Something went wrong. Please try again.');
+        // }
       });
   };
 
@@ -128,6 +128,8 @@ export const Signin = () => {
         } catch (error) {
           if (error.response) {
             setError(error.response.data.message || 'An error occurred. Please try again.');
+          } else if(error.response.status === 404){
+            setError("User does not exist.");
           } else {
             setError("An error occurred. Please try again.");
           }

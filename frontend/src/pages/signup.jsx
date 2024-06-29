@@ -100,10 +100,10 @@ export const Signup = () => {
         console.error('Error sending OTP:', error);
         setLoading(false);
         if (error.code === 'auth/too-many-requests') {
-          setError('Too many requests. Please try again later.');
-        } else {
-          setError('Something went wrong. Please try again.');
-        }
+          setError('Too many requests. Please try again later.');}
+        // } else {
+        //   setError('Something went wrong. Please try again.');
+        // }
       });
   };
 
@@ -125,7 +125,9 @@ export const Signup = () => {
         } catch (error) {
           if (error.response) {
             setError(error.response.data.message || 'An error occurred. Please try again.');
-          } else {
+          } else if(error.response.status === 411){
+            setError("phone number already registered.");
+          }else {
             setError("An error occurred. Please try again.");
           }
         }
