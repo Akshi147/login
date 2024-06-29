@@ -44,7 +44,7 @@ export const Signup = () => {
       navigate("/dashboard");
     } catch (error) {
       if (error.response) {
-        if (error.response.status === 411) {
+        if (error.response.status === 411 || (error.response.status===400 && error.response.data.message === 'Email already in use')) {
           setError("Email already taken.");
         } else if (error.response.status === 410) {
           setError("Please fill all required fields correctly");

@@ -45,6 +45,8 @@ export const Signin = () => {
       if (error.response) {
         if (error.response.status === 404) {
           setError("User does not exist.");
+        } else if (error.response.status===400 && error.response.data.message === 'Email already in use'){
+          setError("Email already taken in User Signin.");
         } else if (error.response.status === 400) {
           setError("Please fill the required fields correctly.");
         } else if (error.response.status === 401) {
