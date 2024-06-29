@@ -42,13 +42,18 @@ router.post("/", async (req, res) => {
         });
     }
 
-    const user = await User.create({
+    const userData = {
         username: req.body.username,
         password: req.body.password,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        phoneNumber: req.body.phoneNumber || null,
-    });
+    };
+
+    if (req.body.phoneNumber) {
+        userData.phoneNumber = req.body.phoneNumber;
+    }
+
+    const user = await User.create(userData);
     const userId = user._id;
 
     const token = jwt.sign({
@@ -60,6 +65,7 @@ router.post("/", async (req, res) => {
         token: token
     });
 });
+
 
 const signinBody = zod.object({
     username: zod.string().email(),
@@ -147,7 +153,6 @@ router.get("/logout", (req, res) => {
     });
 });
 
-// New route to handle OTP verification signup
 router.post("/otp-verify", async (req, res) => {
     const { phoneNumber, firstName, lastName } = req.body;
 
@@ -179,6 +184,7 @@ router.post("/otp-verify", async (req, res) => {
         token: token
     });
 });
+
 
 // New route to handle OTP verification sign-in
 router.post("/otp-signin", async (req, res) => {

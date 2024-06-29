@@ -6,14 +6,12 @@ mongoose.connect(process.env.MONGO_URI);
 
 const userSchema = new mongoose.Schema({
         username: {
-            type: String,
-            required: true,
-            sparse: true,
-            unique: true,
-            trim: true,
-            lowercase: true,
-            trim: true,
-            maxLength: 50
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        lowercase: true,
+        maxLength: 50
     },
     password: {
         type: String,
@@ -34,7 +32,7 @@ const userSchema = new mongoose.Schema({
     phoneNumber: {
         type: String,
         unique: true,
-        sparse: true, // Allows null values to be unique
+        sparse: true,
         trim: true
     },
     oauthProvider: {
