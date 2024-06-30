@@ -204,6 +204,7 @@ export const Signin = () => {
                     {loading && <CgSpinner size={20} className="mt-1 animate-spin" />}
                   </Button>
                   </div>
+                  <Button onClick={togglePhoneInput} label={"Go back to other sign-in options"} />
                 </>
               ) : (
                 <>
@@ -224,6 +225,7 @@ export const Signin = () => {
                     {loading && <CgSpinner size={20} className="mt-1 animate-spin" />}
                   </Button>
                   </div>
+                  <Button onClick={togglePhoneInput} label={"Go back to other sign-in options"} />
                 </>
               )}
             </div>

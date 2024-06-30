@@ -226,6 +226,7 @@ export const Signup = () => {
                       )}
                     </Button>
                   </div>
+                  <Button onClick={togglePhoneInput} label={"Go back to other sign-up options"} />
                 </>
               ) : (
                 <>
@@ -263,6 +264,7 @@ export const Signup = () => {
                       )}
                     </Button>
                   </div>
+                  <Button onClick={togglePhoneInput} label={"Go back to other sign-up options"} />
                 </>
               )}
             </div>
